@@ -11,7 +11,7 @@ public class Script : MonoBehaviour
         SceneManager.LoadScene(1);
     
     }//end of play
-    public void goToAbout() {
+    public void goToSudoku() {
         SceneManager.LoadScene(2);
     
     
@@ -20,4 +20,5 @@ public class Script : MonoBehaviour
         SceneManager.LoadScene(3);
     
     }
+    
 }

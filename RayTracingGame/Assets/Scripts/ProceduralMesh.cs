@@ -21,9 +21,15 @@ public class ProceduralMesh : MonoBehaviour
     }
     
     void MakeMeshData() {
-
-        vertices = new Vector3[] { Target.transform.position, new Vector3(0,1,0), new Vector3(1,0,0)};
-        triangles = new int[] { 0, 1, 2 };
+        RaycastHit hit;
+        if (Physics.Raycast(Target.transform.position, Target.transform.up, out hit,100)) {
+            if (hit.rigidbody != null){
+                vertices = new Vector3[] { Target.transform.position, new Vector3(Target.transform.position.x, Target.transform.position.y + 10, 0), new Vector3(Target.transform.position.x + 10, Target.transform.position.y, 0) };
+                triangles = new int[] { 0, 1, 2 };
+            }
+        }
+        
+        
     
     }
     // Update is called once per frame
@@ -31,10 +37,17 @@ public class ProceduralMesh : MonoBehaviour
     void Update()
     {
         mesh.Clear();
-       
-        vertices = new Vector3[] { Target.transform.position, new Vector3(0, 1, 0), new Vector3(1, 0, 0) };
-        triangles = new int[] { 0, 1, 2 };
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
+        RaycastHit hit;
+        if (Physics.Raycast(Target.transform.position, Target.transform.up, out hit,100))
+        {
+            if (hit.rigidbody != null)
+            {
+                vertices = new Vector3[] {Target.transform.position,  Target.transform.position, new Vector3(Target.transform.position.x, Target.transform.position.y + 10, 0), new Vector3(Target.transform.position.x + 10, Target.transform.position.y, 0) };
+                triangles = new int[] { 0, 1, 2 };
+                mesh.vertices = vertices;
+                mesh.triangles = triangles;
+            }
+        }
+        
     }
 }
