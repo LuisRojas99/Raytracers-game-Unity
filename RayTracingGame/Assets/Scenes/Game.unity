@@ -33255,8 +33255,9 @@ GameObject:
   - component: {fileID: 1561745359}
   - component: {fileID: 1561745361}
   - component: {fileID: 1561745358}
+  - component: {fileID: 1561745362}
   m_Layer: 0
-  m_Name: Chest1
+  m_Name: Chest
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33275,9 +33276,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.08587298, y: -0.0020400875}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 2.5090423
 --- !u!212 &1561745359
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33336,7 +33337,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561745357}
   m_LocalRotation: {x: -0, y: -0, z: -0.010660305, w: 0.9999432}
-  m_LocalPosition: {x: -9.77, y: -6.55, z: -9.899416}
+  m_LocalPosition: {x: -9.77, y: -6.55, z: -5}
   m_LocalScale: {x: 0.26226667, y: 0.23540977, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -33356,6 +33357,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1561745359}
   openSprite: {fileID: 21300000, guid: b5bd04bb0d687a4418a31e5cfbe6831d, type: 3}
+  rb: {fileID: 1561745362}
+--- !u!50 &1561745362
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561745357}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1753688130
 GameObject:
   m_ObjectHideFlags: 0
@@ -33435,6 +33458,7 @@ GameObject:
   - component: {fileID: 1887196434}
   - component: {fileID: 1887196437}
   - component: {fileID: 1887196438}
+  - component: {fileID: 1887196439}
   m_Layer: 0
   m_Name: mainCharacter
   m_TagString: Untagged
@@ -33456,6 +33480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rb: {fileID: 1887196437}
+  distance: 10
+  chestIn: {fileID: 2072720388}
 --- !u!212 &1887196435
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33557,6 +33583,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.2}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!114 &1887196439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887196433}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 129a3311aff651147b61577e81b8a200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  openSprite: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1 &2072720388
 GameObject:
   m_ObjectHideFlags: 0
