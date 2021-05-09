@@ -16,9 +16,10 @@ public class Script : MonoBehaviour
     
     
     }
-    public void goToSettings() {
-        SceneManager.LoadScene(3);
     
+    public void goToPonglike() {
+
+        SceneManager.LoadScene(3);
     }
     
 }

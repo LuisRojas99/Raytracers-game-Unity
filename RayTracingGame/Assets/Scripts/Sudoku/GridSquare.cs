@@ -12,6 +12,17 @@ public class GridSquare : Selectable,IPointerClickHandler,ISubmitHandler, IPoint
     private bool selected = false;
     private int squareIndex = -1;
     private int correctNumber = 0;
+    public bool hasDefaultNumber = false;
+    public bool isCorrectNumber() {
+        return number == correctNumber;
+    }
+    public void SetHasDefaultNumber(bool m) {
+        hasDefaultNumber = m;
+    }
+    public bool GetHasDefaultNumber() {
+
+        return hasDefaultNumber;
+    }
     public bool IsSelected() {
         return selected;
     
@@ -29,6 +40,7 @@ public class GridSquare : Selectable,IPointerClickHandler,ISubmitHandler, IPoint
     void Start() {
 
         selected = false;
+       
     }
 
     public void displayText() {
@@ -44,13 +56,14 @@ public class GridSquare : Selectable,IPointerClickHandler,ISubmitHandler, IPoint
     }
 
     public void SetNumber(int number1) {
-        if (number == 0) {
+        
             number = number1;
+
+
+
+
             displayText();
-        }
         
-        
-        displayText();
         
     }
     public void OnPointerClick(PointerEventData eventData) {
@@ -70,7 +83,7 @@ public class GridSquare : Selectable,IPointerClickHandler,ISubmitHandler, IPoint
         GameEvents.OnSquareSelected -= OnSquareSelected;
     }
     public void OnSetNumber(int number) {
-        if (selected) {
+        if (selected && this.number!=correctNumber) {
             SetNumber(number);
             if (number != correctNumber)
             {
@@ -81,10 +94,11 @@ public class GridSquare : Selectable,IPointerClickHandler,ISubmitHandler, IPoint
                 GameEvents.OnWrongNumberMethod();
             }
             else {
-
+                SetHasDefaultNumber(true);
                 var colors = this.colors;
                 colors.normalColor = Color.green;
                 this.colors = colors;
+                
             }
 
         }
@@ -96,4 +110,5 @@ public class GridSquare : Selectable,IPointerClickHandler,ISubmitHandler, IPoint
         }
     
     }
+    
 }

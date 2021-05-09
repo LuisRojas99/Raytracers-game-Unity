@@ -12,8 +12,8 @@ public class Grid2 : MonoBehaviour
     private List<GameObject> grid_squares = new List<GameObject>();
     public float SquareScale = 1.0f;
     private int selectedGridData = -1;
-
-
+   
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -82,15 +82,18 @@ public class Grid2 : MonoBehaviour
     }
     */
     private void SetGridNumber() {
-        int[] sudoku1 = new int[81] { 0, 2, 7, 0, 5, 4, 3, 0, 6,
-                          9, 6, 0, 3, 2, 7, 1, 4, 8,
-                          3, 4, 1, 6, 8, 0, 7, 0, 0,
-                          5, 0, 3, 0, 6, 8, 2, 7, 1,
-                          4, 0, 2, 5, 1, 3, 0, 8, 9,
-                          6, 1, 8, 0, 7, 2, 4, 3, 0,
-                          7, 8, 6, 2, 3, 0, 9, 1, 4,
-                          1, 0, 4, 0, 9, 6, 8, 0, 3,
-                          2, 3, 0, 8, 4, 1, 5, 6, 7 };
+        int[] sudoku1 = new int[81] {8, 2, 7,   1, 5, 4,   3, 0, 6,
+                                     0, 6, 5,   3, 2, 7,   1, 4, 8,
+                                     3, 4, 1,   6, 8, 0,   7, 5, 2,
+
+                                     5, 0, 3,   4, 6, 8,   2, 7, 1,
+                                     4, 7, 2,   5, 1, 3,   6, 8, 0,
+                                     6, 1, 8,   0, 7, 2,   4, 3, 5,
+
+                                     7, 8, 6,   2, 3, 5,   0, 1, 4,
+                                     1, 5, 4,   7, 0, 6,   8, 2, 3,
+                                     2, 3, 0,   8, 4, 1,   5, 6, 7 };
+
         int[] sudoku2 = new int[81]{ 8, 2, 7,   1, 5, 4,   3, 9, 6,
                                      9, 6, 5,   3, 2, 7,   1, 4, 8,
                                      3, 4, 1,   6, 8, 9,   7, 5, 2,
@@ -111,15 +114,17 @@ public class Grid2 : MonoBehaviour
 
     }
     private void setGridSquareData(SudokuData.SudokuBoardData data) {
-        int[] sudoku1 =new int[81] { 0, 2, 7, 0, 5, 4, 3, 0, 6,
-                          9, 6, 0, 3, 2, 7, 1, 4, 8,
-                          3, 4, 1, 6, 8, 0, 7, 0, 0,
-                          5, 0, 3, 0, 6, 8, 2, 7, 1,
-                          4, 0, 2, 5, 1, 3, 0, 8, 9,
-                          6, 1, 8, 0, 7, 2, 4, 3, 0,
-                          7, 8, 6, 2, 3, 0, 9, 1, 4,
-                          1, 0, 4, 0, 9, 6, 8, 0, 3,
-                          2, 3, 0, 8, 4, 1, 5, 6, 7 };
+        int[] sudoku1 =new int[81] { 8, 2, 7,   1, 5, 4,   3, 0, 6,
+                                     0, 6, 5,   3, 2, 7,   1, 4, 8,
+                                     3, 4, 1,   6, 8, 0,   7, 5, 2,
+
+                                     5, 0, 3,   4, 6, 8,   2, 7, 1,
+                                     4, 7, 2,   5, 1, 3,   6, 8, 0,
+                                     6, 1, 8,   0, 7, 2,   4, 3, 5,
+
+                                     7, 8, 6,   2, 3, 5,   0, 1, 4,
+                                     1, 5, 4,   7, 0, 6,   8, 2, 3,
+                                     2, 3, 0,   8, 4, 1,   5, 6, 7 };
 
         int[] sudoku2 = new int[81]{ 8, 2, 7,   1, 5, 4,   3, 9, 6,
                                      9, 6, 5,   3, 2, 7,   1, 4, 8,
@@ -132,12 +137,38 @@ public class Grid2 : MonoBehaviour
                                      7, 8, 6,   2, 3, 5,   9, 1, 4,
                                      1, 5, 4,   7, 9, 6,   8, 2, 3,
                                      2, 3, 9,   8, 4, 1,   5, 6, 7 };
+        int n = 0;
         for (int index = 0; index < 81; index++) {
+            if (sudoku1[index] == 0) {
+                n++;
+            }
+            
             //grid_squares[index].GetComponent<GridSquare>().SetNumber(data.unsolvedData[index]);
+            grid_squares[index].GetComponent<GridSquare>().hasDefaultNumber= (sudoku1[index] == sudoku2[index]);
             grid_squares[index].GetComponent<GridSquare>().SetNumber(sudoku1[index]);
             grid_squares[index].GetComponent<GridSquare>().SetCorrectNumber(sudoku2[index]);
+           
+            
         }
         
     }
+    private void OnEnable() {
+        GameEvents.OnUpdateSquareNumber += CheckBoarCompleted;
+    }
+    private void OnDisable() {
+        GameEvents.OnUpdateSquareNumber -= CheckBoarCompleted;
+
+    }
+    private void CheckBoarCompleted(int number) {
+        foreach (var square in grid_squares) {
+            var comp = square.GetComponent<GridSquare>();
+            if (comp.isCorrectNumber() == false) {
+                return;
+            }
+
+        }
+        GameEvents.OnBoardCompletedMethod();
+    }
+    
 
 }

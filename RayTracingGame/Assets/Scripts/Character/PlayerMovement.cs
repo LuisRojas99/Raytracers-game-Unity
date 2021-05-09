@@ -7,23 +7,24 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     Vector2 movement;
-    private IInteractable interactable;
+    public GameObject InteractableIcon;
+    private Vector2 boxSize = new Vector2(1.5f, 1.5f);
+    
+    
 
-    public float distance;
-    RaycastHit2D infoRay;
-    public GameObject chestIn;
-
+    
     // Update is called once per frame
     void Update()//handle input here
     {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            CheckInteraction();
+        
+        }
         facemouse();
         movement.x =Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        infoRay = Physics2D.Raycast(rb.transform.position, Vector2.down, distance);
-        Debug.DrawRay(rb.transform.position, Vector2.down * distance, Color.blue);
-        if (infoRay.collider.name == "Chest") {
-            chestIn.SetActive(true);
-        }
+
+        
 
     }
     void FixedUpdate() { //handle movement here
@@ -34,39 +35,34 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector2 direction = new Vector2(-mousePosition.x +transform.position.x, -mousePosition.y + transform.position.y);
+        Vector2 direction = new Vector2(mousePosition.x -transform.position.x, mousePosition.y - transform.position.y);
         transform.up = direction;
     
     }
 
-    public void Interact() {
-        if (interactable != null) {
-            interactable.Interact();
-        
-        } 
-        
-    }
-    public void OnTriggerEnter2D(Collider2D collision) {
-
-        if (collision.tag == "Interactable") {
-            interactable = collision.GetComponent<IInteractable>();
-        }
+    
+    
+    public void OpenInteractableIcon() {
+        InteractableIcon.SetActive(true);
     
     }
-    public void OnTriggerExit2D(Collider2D collision)
+    public void CloseInteractableIcon()
     {
-
-        if (collision.tag == "Interactable")
-        {
-            if (interactable != null)
-            {
-                interactable.StopInteract();
-                interactable = null;
-            }
-        }
+        InteractableIcon.SetActive(false);
 
     }
-
+    private void CheckInteraction() {
+        RaycastHit2D[] Hits = Physics2D.BoxCastAll(transform.position,boxSize,0,Vector2.zero);
+        if (Hits.Length > 0) {
+            foreach (RaycastHit2D rc in Hits) {
+                if (rc.transform.GetComponent<Interactable>()) {
+                    rc.transform.GetComponent<Interactable>().Interact();
+                    return;
+                }
+            }
+        }
+        
+    }
 
 
 }
