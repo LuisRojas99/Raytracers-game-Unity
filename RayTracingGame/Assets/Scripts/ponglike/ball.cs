@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ball : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 10f;
     private int pongLives = 3;
     public GameObject gameOver;
     void Start()

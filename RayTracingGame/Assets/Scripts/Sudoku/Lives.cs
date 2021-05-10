@@ -6,7 +6,7 @@ public class Lives : MonoBehaviour
 {
     public List<GameObject> errorImages;
     int lives = 0;
-    int errorNumber=0;
+    int errorNumber = 0;
     public GameObject gameOver;
     public GameObject done;
     private int numberOfBlanks = 100;
@@ -15,8 +15,12 @@ public class Lives : MonoBehaviour
     {
         lives = errorImages.Count;
         errorNumber = 0;
+        lives = 3;
+
     }
+    public void pause (){
     
+    }
 
     private void wrongNumber() {
         if (errorNumber < errorImages.Count){

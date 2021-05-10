@@ -7,7 +7,7 @@ public class Openable : Interactable
 {
     public Sprite open;
     public Sprite closed;
-
+    public int ChestId;
     private SpriteRenderer sr;
     private bool isOpen;
     
@@ -27,7 +27,11 @@ public class Openable : Interactable
         }
         else {
             sr.sprite = open;
-            SceneManager.LoadScene(2);
+            
+
+                SceneManager.LoadScene(ChestId);//2 for sudoku  3 for ponglike
+            
+
         }
         isOpen = !isOpen;
     }

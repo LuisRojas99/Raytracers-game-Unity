@@ -15,6 +15,9 @@ public class pongbrick : MonoBehaviour
     public void Start() {
         sr = GetComponent<SpriteRenderer>();
     }
+    public int getBrickId() {
+        return brickId;
+    }
     private void OnCollisionEnter2D(Collision2D other ) {
 
         if (brickId <= 0)
